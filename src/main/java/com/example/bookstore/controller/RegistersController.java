@@ -1,27 +1,32 @@
 package com.example.bookstore.controller;
 
 import com.example.bookstore.dto.RegistersUser;
+import com.example.bookstore.entity.Role;
 import com.example.bookstore.entity.User;
+import com.example.bookstore.service.RolesService;
 import com.example.bookstore.service.UsersService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/register")
 public class RegistersController {
-    UsersService usersService;
+    private UsersService usersService;
+
+    private RolesService rolesService;
 
     @Autowired
-    public RegistersController(UsersService usersService) {
+    public RegistersController(UsersService usersService, RolesService rolesService) {
         this.usersService = usersService;
+        this.rolesService = rolesService;
     }
 
     @GetMapping("/form")
@@ -31,8 +36,14 @@ public class RegistersController {
         return "register/form";
     }
 
+    @InitBinder
+    public void initBinder(WebDataBinder data) {
+        StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+        data.registerCustomEditor(String.class, stringTrimmerEditor);
+    }
+
     @PostMapping("/save")
-    public String saveRegister(@ModelAttribute("registerUser") RegistersUser registersUser,
+    public String saveRegister(@Valid @ModelAttribute("registerUser") RegistersUser registersUser,
                                BindingResult bindingResult,
                                Model model,
                                HttpSession session) {
@@ -45,7 +56,7 @@ public class RegistersController {
         User checkUser = usersService.findByUsername(username);
         if(checkUser != null) {
             model.addAttribute("registerUser", registersUser);
-            model.addAttribute("my_error", "Account already exists");
+            model.addAttribute("my_error", "An account using this username already exists");
             return "register/form";
         }
 
@@ -57,6 +68,7 @@ public class RegistersController {
         user.setEmail(registersUser.getEmail());
         user.setPhoneNumber(registersUser.getPhoneNumber());
         user.setAddress(registersUser.getAddress());
+        user.setRole(rolesService.findByName("ROLE_CUSTOMER"));
         usersService.saveUser(user);
 
         session.setAttribute("user", user);

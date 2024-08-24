@@ -1,10 +1,10 @@
 package com.example.bookstore.dao;
 
-import com.example.bookstore.entity.User;
+import com.example.bookstore.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UsersRepository extends JpaRepository<User, Integer> {
-    public User findByUsername(String username);
+public interface RolesRepository extends JpaRepository<Role, Integer> {
+    public Role findByName(String roleName);
 }
