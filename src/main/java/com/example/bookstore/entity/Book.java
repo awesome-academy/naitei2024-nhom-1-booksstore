@@ -24,6 +24,10 @@ public class Book {
     @Column(name = "stock_quantity")
     private int stockQuantity;
 
+    @Lob
+    @Column(name = "image", columnDefinition = "LONGTEXT") // This column now holds the Base64 encoded image data
+    private String image;
+
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private Set<BookCategory> bookCategories;
 
@@ -39,12 +43,13 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, double price, double rating, int stockQuantity, Set<BookCategory> bookCategories) {
+    public Book(String title, double price, double rating, int stockQuantity, Set<BookCategory> bookCategories, String image) {
         this.title = title;
         this.price = price;
         this.rating = rating;
         this.stockQuantity = stockQuantity;
         this.bookCategories = bookCategories;
+        this.image = image;
     }
 
     public int getId() {
@@ -87,6 +92,14 @@ public class Book {
         this.stockQuantity = stockQuantity;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public Set<BookCategory> getBookCategories() {
         return bookCategories;
     }
@@ -110,6 +123,15 @@ public class Book {
     public void setCartDetails(Set<CartDetail> cartDetails) {
         this.cartDetails = cartDetails;
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", price=" + price +
+                ", rating=" + rating +
+                ", stockQuantity=" + stockQuantity +
+                '}';
+    }
 }
-
-
