@@ -4,8 +4,8 @@ import com.example.bookstore.entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.ui.Model;
 
-public interface UsersService {
-    public User findByUsername(String username);
-    public User saveUser(User user);
-    public User convertRegisterUserToUser(RegistersUser registersUser);
+public interface UsersService extends UserDetailsService {
+     User findByUsername(String username);
+     User saveUser(User user);
+     User convertRegisterUserToUser(RegistersUser registersUser);
 }

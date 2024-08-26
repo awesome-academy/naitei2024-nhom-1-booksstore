@@ -23,6 +23,11 @@ public class SessionsController {
     @Autowired
     private RolesService rolesService;
 
+    @GetMapping("/login")
+    public String showLoginPage() {
+        return "sessions/login";
+    }
+
     @GetMapping("/new")
     public String showForm(Model model) {
         RegistersUser registersUser = new RegistersUser();
