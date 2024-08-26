@@ -1,4 +1,4 @@
-package com.example.bookstore.service.serviceimpl;
+package com.example.bookstore.service.impl;
 
 import com.example.bookstore.dao.UsersRepository;
 import com.example.bookstore.dto.RegistersUser;
