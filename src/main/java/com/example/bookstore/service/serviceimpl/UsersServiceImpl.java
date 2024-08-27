@@ -4,6 +4,9 @@ import com.example.bookstore.dao.UsersRepository;
 import com.example.bookstore.dto.RegistersUser;
 import com.example.bookstore.service.RolesService;
 import com.example.bookstore.service.UsersService;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.bookstore.entity.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -41,4 +44,10 @@ public class UsersServiceImpl implements UsersService {
         user.setRole(rolesService.findByName("ROLE_CUSTOMER"));
         return user;
     }
+
+	@Override
+	public User findById(int id) {
+		 Optional<User> user = usersRepository.findById(id);
+	        return user.orElse(null);  // Trả về null nếu không tìm thấy người dùng
+	}
 }

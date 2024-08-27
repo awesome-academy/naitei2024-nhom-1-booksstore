@@ -190,5 +190,12 @@
         <p>© 2022 JBOOKS</p>
     </div>
 </footer>
+     <div th:if="${error != null}" th:text="${error}" id="errorMessage" style="display: none;"></div>
+    <script>
+        var errorMessage = document.getElementById("errorMessage").textContent;
+        if (errorMessage) {
+            alert(errorMessage);
+        }
+    </script>
 </body>
 </html>
