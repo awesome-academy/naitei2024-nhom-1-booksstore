@@ -1,4 +1,4 @@
-package com.example.bookstore.service.serviceimpl;
+package com.example.bookstore.service.impl;
 
 import com.example.bookstore.dao.RolesRepository;
 import com.example.bookstore.entity.Role;
