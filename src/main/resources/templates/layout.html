@@ -31,12 +31,10 @@
     <nav>
         <ul>
             <li>Home</li>
-            <li>Sách học</li>
-            <li>Sách luyện thi</li>
-            <li>Sách tham khảo</li>
-            <li>Flash Card</li>
-            <li>Học Online</li>
+            <li>Đơn hàng</li>
+            <li>Liên hệ</li>
             <li>Flash Sale</li>
+            <li>Học Online</li>
         </ul>
     </nav>
 </header>
@@ -45,21 +43,23 @@
     <!-- Sidebar Fragment -->
     <aside class="sidebar" th:fragment="sidebar">
         <ul>
-            <li>Sách vở lòng</li>
-            <li>Minna no Nihongo – Bản mới</li>
-            <li>Minna no Nihongo – Bản cũ</li>
-            <li>Minna no Nihongo – XB Trẻ</li>
-            <li>Minna Trung Cấp</li>
-            <li>Luyện thi N5</li>
-            <li>Luyện thi N4</li>
-            <li>Luyện thi N3</li>
-            <li>Luyện thi N2</li>
-            <li>Luyện thi N1</li>
-            <li>Từ điển</li>
-            <li>Sách tham khảo</li>
-            <li>Sách chuyên ngành</li>
-            <li>Flash Card</li>
-            <li>Combo sách</li>
+            <li><a th:href="@{/home}">Tất cả</a></li>
+            <li><a th:href="@{/categories/1}">Luyện thi N1</a></li>
+            <li><a th:href="@{/categories/2}">Luyện thi N2</a></li>
+            <li><a th:href="@{/categories/3}">Luyện thi N3</a></li>
+            <li><a th:href="@{/categories/4}">Luyện thi N4</a></li>
+            <li><a th:href="@{/categories/5}">Luyện thi N5</a></li>
+            <li><a th:href="@{/categories/6}">Tham khảo</a></li>
+            <li><a th:href="@{/categories/7}">Chuyên ngành</a></li>
+            <li><a th:href="@{/categories/8}">Bài tập</a></li>
+            <li><a th:href="@{/categories/9}">Giáo khoa</a></li>
+            <li><a th:href="@{/categories/10}">Luyện nghe</a></li>
+            <li><a th:href="@{/categories/11}">Luyện đọc</a></li>
+            <li><a th:href="@{/categories/12}">Luyện Kanji</a></li>
+            <li><a th:href="@{/categories/13}">Hội thoại</a></li>
+            <li><a th:href="@{/categories/14}">Flash card</a></li>
+            <li><a th:href="@{/categories/15}">Từ điển</a></li>
+            <li><a th:href="@{/categories/16}">Vỡ lòng</a></li>
         </ul>
     </aside>
 
