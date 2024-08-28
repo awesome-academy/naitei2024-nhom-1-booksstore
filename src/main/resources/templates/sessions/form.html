@@ -1,16 +1,14 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link href="/css/register/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="/js/register/bootstrap.min.js"></script>
+    <script src="/js/register/jquery-1.11.1.min.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
 
-    <link rel="stylesheet" href="/css/registerform.css">
+    <link rel="stylesheet" href="/css/register/registerform.css">
 
     <!-- Website Font style -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
@@ -126,7 +124,7 @@
                 </div>
 
                 <div class="text-center">
-                    <p>You already have an account? <a href="" class="text">Login</a></p>
+                    <p>You already have an account? <a th:href="@{/sessions/login}" class="text">Login</a></p>
                 </div>
 
             </form>
