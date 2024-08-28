@@ -13,30 +13,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class HomeController {
+public class CategoriesController {
 
     @Autowired
     private BooksService booksService;
 
-    @GetMapping("/home")
-    public String home(Model model,
-                       @RequestParam(value = "search", required = false) String search,
-                       @RequestParam(value = "page", defaultValue = "0") int page,
-                       @RequestParam(value = "size", defaultValue = "6") int size) {
-        Page<Book> books;
-        if (search != null && !search.isEmpty()) {
-            books = booksService.findByTitle(search, PageRequest.of(page, size));
-        } else {
-            books = booksService.findAll(PageRequest.of(page, size));
-        }
+    @Autowired
+    private CategoriesService categoryService;
+
+    @GetMapping("/categories/{id}")
+    public String getBooksByCategory(Model model,
+                                     @PathVariable("id") Integer categoryId,
+                                     @RequestParam(value = "page", defaultValue = "0") int page,
+                                     @RequestParam(value = "size", defaultValue = "6") int size) {
+        // kiểm tra nếu category id tồn tại
+        Optional<Category> optionalCategory = categoryService.findById(categoryId);
+        Page<Book> books = booksService.findByCategoryId(categoryId, PageRequest.of(page, size));
         model.addAttribute("books", books.getContent());
         model.addAttribute("totalPages", books.getTotalPages());
         model.addAttribute("currentPage", page);
-        model.addAttribute("search", search);
         return "users/home";
     }
 }
