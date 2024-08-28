@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>User List</title>
+<link rel="stylesheet" th:href="@{/css/cart.css}">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+<body>
+	<header>
+		<div class="contact-info">
+			<span>Liên hệ: <strong>0708-744-001</strong> (Call/Zalo)
+			</span> <span class="right"> Hướng dẫn đặt sách | Theo dõi đơn hàng |
+				Tài Khoản </span>
+		</div>
+		<div class="logo-search-cart">
+			<div class="logo">
+				<h1>JBooks</h1>
+			</div>
+			<div class="search-bar">
+				<input type="text" placeholder="Tìm sách tại đây" />
+				<button>Search</button>
+			</div>
+			<div class="cart">
+				<span>Giỏ Hàng</span> <span>0đ</span>
+			</div>
+		</div>
+		<nav>
+			<ul>
+				<li>Home</li>
+				<li>Sách học</li>
+				<li>Sách luyện thi</li>
+				<li>Sách tham khảo</li>
+				<li>Flash Card</li>
+				<li>Học Online</li>
+				<li>Flash Sale</li>
+			</ul>
+		</nav>
+	</header>
+	<div class="container">
+		<main class="content">
+			<table>
+				<thead>
+					<tr>
+						<th>Sản phẩm</th>
+						<th></th>
+						<th>Đơn giá</th>
+						<th>Số lượng</th>
+						<th>Tổng cộng</th>
+						<th></th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="cartDetail : ${cartDetails}">
+						<td><img
+							th:src="'data:image/jpeg;base64,' + ${cartDetail.book.image}"
+							alt="Book Image" width="90" height="110" /></td>
+						<td><a th:text="${cartDetail.book.title}"
+							class="product-name"></a></td>
+						<td
+							th:text="${#numbers.formatDecimal(cartDetail.book.price, 1, 0) + '₫'}"></td>
+						<td><input type="number" th:value="${cartDetail.quantity}"
+							min="1"></td>
+						<td
+							th:text="${#numbers.formatDecimal(cartDetail.book.price * cartDetail.quantity, 1, 0)} + '₫'"></td>
+						<td>
+								<button class="remove-btn"><i class="fa fa-refresh"></i></button>
+								<button class="update-btn"><i class="fa fa-trash-o"></i></button>
+						</td>
+
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td colspan="3" class="subtotal">Tạm tính</td>
+						<td th:text="${subtotal} + '₫'"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td colspan="3" class="estimated-shipping">Phí vận chuyển</td>
+						<td>0</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td colspan="3" class="total-row">Tổng cộng</td>
+						<td th:text="${subtotal} + '₫'"></td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+			<div class="btn">
+				<a th:href="@{/home}" class="continue-shopping"> ← Tiếp Tục Mua Hàng</a>
+			 <a th:href="@{/pay}" class="checkout-btn">Thanh toán ngay</a>
+			</div>
+
+		</main>
+	</div>
+</body>
+</html>

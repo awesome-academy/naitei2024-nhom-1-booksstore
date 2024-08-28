@@ -16,8 +16,17 @@ public class CartDetail {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     private Book book;
+    private int quantity; // Thêm thuộc tính quantity
+    
+    public int getQuantity() {
+		return quantity;
+	}
 
-    public CartDetail() {
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public CartDetail() {
     }
 
     public CartDetail(Cart cart, Book book) {

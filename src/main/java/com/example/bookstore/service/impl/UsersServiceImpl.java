@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -62,4 +63,10 @@ public class UsersServiceImpl implements UsersService {
     private Collection<? extends GrantedAuthority> rolesToAuthorities(Role role) {
         return Collections.singletonList(new SimpleGrantedAuthority(role.getName()));
     }
+
+	@Override
+	public User findById(int useId) {
+		Optional<User> user = usersRepository.findById(useId);
+        return user.orElse(null); 
+	}
 }
