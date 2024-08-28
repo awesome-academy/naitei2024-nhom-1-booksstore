@@ -44,10 +44,9 @@ public class UsersServiceImpl implements UsersService {
         user.setRole(rolesService.findByName("ROLE_CUSTOMER"));
         return user;
     }
-
 	@Override
 	public User findById(int id) {
 		 Optional<User> user = usersRepository.findById(id);
-	        return user.orElse(null);  // Trả về null nếu không tìm thấy người dùng
+	        return user.orElse(null); 
 	}
 }

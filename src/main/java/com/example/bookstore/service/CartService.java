@@ -1,5 +1,6 @@
 package com.example.bookstore.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class CartService {
 		if(cart !=null) {
 			return cartDetailRepository.findByCartId(cart.getId());
 		}
-		return null;
+		return Collections.emptyList();
 		
 	}
 
