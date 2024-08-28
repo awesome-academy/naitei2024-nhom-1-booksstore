@@ -62,7 +62,6 @@
 
 .ratings {
     margin-bottom: 10px;
-    /* Add your star rating styles here */
 }
 
 .price {
@@ -108,4 +107,18 @@
 .coming-soon {
     color: blue;
     font-weight: bold;
+}
+
+.no-books-message {
+    margin: 40px 0;
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+}
+
+.text-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
