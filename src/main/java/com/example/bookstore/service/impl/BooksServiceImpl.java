@@ -5,6 +5,8 @@ import com.example.bookstore.dao.BooksRepository;
 import com.example.bookstore.exception.BookNotFoundException;
 import com.example.bookstore.service.BooksService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,13 +23,13 @@ public class BooksServiceImpl implements BooksService {
     }
 
     @Override
-    public List<Book> findAll() {
-        return booksRepository.findAll();
+    public Page<Book> findAll(Pageable pageable) {
+        return booksRepository.findAll(pageable);
     }
 
     @Override
-    public List<Book> findByTitle(String title) {
-        List<Book> books = booksRepository.findByTitleContainingIgnoreCase(title);
+    public Page<Book> findByTitle(String title, Pageable pageable) {
+        Page<Book> books = booksRepository.findByTitleContainingIgnoreCase(title, pageable);
         if (books.isEmpty()) {
             throw new BookNotFoundException("Không tìm thấy sản phẩm có tên này.");
         }
@@ -35,8 +37,8 @@ public class BooksServiceImpl implements BooksService {
     }
 
     @Override
-    public List<Book> findByCategoryId(Integer categoryId) {
-        List<Book> books = booksRepository.findBooksByCategoryId(categoryId);
+    public Page<Book> findByCategoryId(Integer categoryId, Pageable pageable) {
+        Page<Book> books = booksRepository.findBooksByCategoryId(categoryId, pageable);
         if (books.isEmpty()) {
             throw new BookNotFoundException("Danh mục không chứa sản phẩm nào.");
         }
