@@ -15,4 +15,6 @@ public interface BooksService {
     Page<Book> findByTitle(String title, Pageable pageable);
 
     Page<Book> findByCategoryId(Integer categoryId, Pageable pageable);
+
+    Book findById(Integer id);
 }

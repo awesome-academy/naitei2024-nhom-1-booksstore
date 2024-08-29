@@ -44,4 +44,10 @@ public class BooksServiceImpl implements BooksService {
         }
         return books;
     }
+
+    @Override
+    public Book findById(Integer id) {
+        return booksRepository.findById(id)
+                .orElseThrow(() -> new BookNotFoundException("Không tìm thấy sản phẩm."));
+    }
 }

@@ -4,6 +4,15 @@ body {
     padding: 0;
 }
 
+.container {
+    display: flex;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
 /* Header Styles */
 header {
     background-color: #f8f8f8;
@@ -43,7 +52,7 @@ header {
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 600px; /* Adjust the width as needed */
+    max-width: 600px;
     margin: 0 auto;
 }
 
@@ -66,7 +75,7 @@ header {
 
 .search-bar button {
     padding: 10px 20px;
-    background-color: #FF5722; /* Button color (adjust to your theme) */
+    background-color: #FF5722;
     border: 1px solid #FF5722;
     border-radius: 0 4px 4px 0;
     color: #fff;
