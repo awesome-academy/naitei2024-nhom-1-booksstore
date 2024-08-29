@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="${book.title} + ' - JBooks'">Book Detail - JBooks</title>
+    <link rel="stylesheet" href="/css/users/books/show.css" />
+</head>
+
+<body>
+<main layout:fragment="content" class="content">
+    <div class="book-detail">
+        <h1 th:text="${book.title}">Book Title</h1>
+        <div class="book-rating">
+            <span th:text="${book.rating + ' đánh giá từ khách hàng'}">0 đánh giá từ khách hàng</span>
+        </div>
+
+        <div class="book-content">
+            <div class="book-image">
+                <img th:src="'data:image/jpeg;base64,' + ${book.image}" alt="Book Image" />
+            </div>
+            <div class="book-info">
+                <div class="book-price">
+                    <span class="current-price" th:text="${book.price + 'đ'}">69.000đ</span>
+                </div>
+                <div class="book-category">
+                    <strong>Danh mục:</strong>
+                    <span th:each="category, stat : ${categories}">
+                        <span th:text="${category.category.name}">Category Name</span>
+                        <span th:if="${!stat.last}">, </span>
+                    </span>
+                </div>
+
+                <div class="purchase-options">
+                    <input type="number" name="quantity" value="1" min="1" />
+                    <button class="add-to-cart">+ Giỏ Hàng</button>
+                    <button class="buy-now">Mua Ngay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

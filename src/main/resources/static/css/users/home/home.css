@@ -25,6 +25,25 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     width: calc(30% - 20px);
     position: relative;
+}.book-card {
+     background-color: white;
+     padding: 15px;
+     border-radius: 8px;
+     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+     width: calc(30% - 20px);
+     position: relative;
+     transition: all 0.3s ease;
+ }
+
+ .book-card:hover {
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+     transform: translateY(-5px);
+     background-color: #f9f9f9;
+ }
+
+.book-card a {
+    color: inherit;
+    text-decoration: none;
 }
 
 .book-card .discount {
