@@ -18,6 +18,19 @@
     flex-wrap: wrap;
 }
 
+.book-grid2 {
+    display: none;
+}
+
+.book-grid2.activate,
+#newest:target,
+#best-selling:target,
+#top-rated:target {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
 .book-card {
     background-color: white;
     padding: 15px;

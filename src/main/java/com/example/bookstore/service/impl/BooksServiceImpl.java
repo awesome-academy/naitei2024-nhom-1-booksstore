@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Service
@@ -50,4 +52,21 @@ public class BooksServiceImpl implements BooksService {
         return booksRepository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException("Không tìm thấy sản phẩm."));
     }
+
+    @Override
+    public List<Book> findTopRatedBooks(int limit) {
+        return booksRepository.findTop5ByOrderByRatingDesc();
+    }
+
+    @Override
+    public List<Book> findRecentBooks() {
+        LocalDateTime twoWeeksAgo = LocalDateTime.now().minus(2, ChronoUnit.WEEKS);
+        return booksRepository.findTop10RecentBooks(twoWeeksAgo);
+    }
+
+    @Override
+    public List<Book> findTopSellingBooks() {
+        return booksRepository.findTop5BestSellingBooks();
+    }
+
 }

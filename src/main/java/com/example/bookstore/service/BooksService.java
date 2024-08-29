@@ -7,7 +7,6 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface BooksService {
-
     void save(Book book);
 
     Page<Book> findAll(Pageable pageable);
@@ -17,4 +16,10 @@ public interface BooksService {
     Page<Book> findByCategoryId(Integer categoryId, Pageable pageable);
 
     Book findById(Integer id);
+
+    List<Book> findTopRatedBooks(int limit);
+
+    List<Book> findRecentBooks();
+
+    List<Book> findTopSellingBooks();
 }
