@@ -10,5 +10,4 @@ import com.example.bookstore.entity.CartDetail;
 @Repository
 public interface CartDetailRepository extends JpaRepository<CartDetail, Integer> {
 	List<CartDetail> findByCartId(int cartId);
-
 }
