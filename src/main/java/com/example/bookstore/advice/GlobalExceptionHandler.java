@@ -2,6 +2,8 @@ package com.example.bookstore.advice;
 
 import com.example.bookstore.exception.BookNotFoundException;
 import com.example.bookstore.exception.CategoryNotFoundException;
+import com.example.bookstore.exception.OrderNotFoundException;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,4 +26,9 @@ public class GlobalExceptionHandler {
         return "users/home";
     }
 
+    @ExceptionHandler(OrderNotFoundException.class)
+    public String handle(OrderNotFoundException ex, Model model) {
+        model.addAttribute("errorMessage", ex.getMessage());
+        return "users/purchase";
+    }
 }

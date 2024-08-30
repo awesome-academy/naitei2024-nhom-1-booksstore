@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sách tiếng Nhật JBooks</title>
+    <link rel="stylesheet" href="/css/users/orders/order.css" />
+</head>
+
+<body>
+    <main layout:fragment="content" class="content">
+        <div class="tabs">
+                <a href="#" class="active">Tất cả</a>
+                <a href="#">Chờ xác nhận</a>
+                <a href="#">Đang Vận chuyển</a>
+                <a href="#">Hoàn thành</a>
+                <a href="#">Đã huỷ</a>
+         </div>
+         
+         <!-- Message if no orders are available -->
+            <div th:if="${errorMessage}" class="no-orders-message text-center">
+                <h3 th:text="${errorMessage}"></h3>
+            </div>
+
+		<div class="order" th:each="order : ${orders}">
+		    <div class="order-header">
+		        <span>Ngày đặt: <span th:text="${#dates.format(order.orderDate, 'dd/MM/yyyy')}"></span></span>
+		        <span>Trạng thái: <span th:text="${order.status}"></span></span>
+		    </div>
+		    <div class="order-body" th:each="detail : ${order.orderDetails}">
+		        <div class="order-item">
+		            <img th:src="'data:image/jpeg;base64,' + ${detail.book.image}" alt="Book Image" />
+		            <div class="item-info">
+		                <h3 th:text="${detail.book.title}"></h3>
+		                <p>Số lượng: <span th:text="${detail.quantity}"></span></p>
+		                <p>Giá: <span th:text="${#numbers.formatDecimal(detail.price, 0, 'POINT', 3, 'COMMA')}"></span>đ</p>
+		            </div>
+		        </div>  
+		    </div>
+		    <div class="order-footer">
+		        <div>
+		            <button class="btn">Chi tiết đơn hàng</button>
+		            <button class="btn">Đánh giá</button>
+		        </div>
+		        <div class="total">
+		            <span>Thành tiền: <span th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'POINT', 3, 'COMMA')}"></span>đ</span>
+		        </div>
+		    </div>
+		</div>
+
+    </main>
+</body>
+</html>
