@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sách tiếng Nhật JBooks</title>
+    <link rel="stylesheet" href="/css/users/home/home.css" />
+</head>
+
+<body>
+<main layout:fragment="content" class="content">
+    <div class="book-list">
+        <h2>Danh sách sách</h2>
+        <!-- Message if no books are available -->
+        <div th:if="${errorMessage}" class="no-books-message text-center">
+            <h3 th:text="${errorMessage}"></h3>
+        </div>
+
+        <div class="book-grid">
+            <!-- Loop through books and display each one in a card -->
+            <div class="book-card" th:each="book : ${books}">
+                <!-- Link to book detail page -->
+                <a th:href="@{/books/{id}(id=${book.id})}">
+                    <div class="book-image">
+                        <!-- Display the book's image -->
+                        <img th:src="'data:image/jpeg;base64,' + ${book.image}" alt="Book Image" />
+                    </div>
+                    <div class="book-info">
+                        <!-- Display the book's title -->
+                        <h3 th:text="${book.title}">Book Title</h3>
+                        <div class="ratings">
+                            <!-- Display the book's rating -->
+                            <span th:text="${book.rating}">Rating</span>
+                        </div>
+                        <div class="price">
+                            <!-- Display the book's price -->
+                            <span class="current-price" th:text="${book.price + 'đ'}">Price</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${totalPages > 0}">
+        <div class="pagination">
+            <ul>
+                <li th:if="${currentPage > 0}">
+                    <a th:href="@{/home(page=${currentPage - 1}, size=6, search=${search})}">&laquo; Previous</a>
+                </li>
+                <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
+                    th:class="${pageNum == currentPage} ? 'active'">
+                    <a th:href="@{/home(page=${pageNum}, size=6, search=${search})}" th:text="${pageNum + 1}">1</a>
+                </li>
+                <li th:if="${currentPage < totalPages - 1}">
+                    <a th:href="@{/home(page=${currentPage + 1}, size=6, search=${search})}">Next &raquo;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="featured-books">
+        <h2>Danh sách quan tâm</h2>
+        <div class="filters">
+            <span class="filter-active">Mới nhất</span>
+            <span>Bán chạy</span>
+            <span>Đánh giá cao</span>
+        </div>
+        <div class="book-grid">
+            <div class="book-card">
+                <div class="discount">Bán chạy</div>
+                <div class="book-image">
+                    <img src="url-to-image" alt="Featured Book Image" />
+                </div>
+                <div class="book-info">
+                    <h3>Tên sách</h3>
+                    <div class="ratings"></div>
+                    <div class="price">
+                        <span class="current-price">54.000đ</span>
+                        <span class="original-price">100.000đ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
