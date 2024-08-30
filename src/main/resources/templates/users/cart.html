@@ -30,26 +30,34 @@
 					</thead>
 					<tbody>
 						<tr th:each="cartDetail : ${cartDetails}">
-							<td><img
-								th:src="'data:image/jpeg;base64,' + ${cartDetail.book.image}"
-								alt="Book Image" width="90" height="110" /></td>
-							<td><a th:text="${cartDetail.book.title}"
-								class="product-name"></a></td>
-							<td
-								th:text="${#numbers.formatDecimal(cartDetail.book.price, 1, 0) + '₫'}"></td>
-							<td><input type="number" th:value="${cartDetail.quantity}"
-								min="1"></td>
-							<td
-								th:text="${#numbers.formatDecimal(cartDetail.book.price * cartDetail.quantity, 1, 0)} + '₫'"></td>
-							<td>
-								<button class="remove-btn">
-									<i class="fa fa-refresh"></i>
-								</button>
-								<button class="update-btn">
-									<i class="fa fa-trash-o"></i>
-								</button>
-							</td>
-
+							<form th:action="@{|/carts/${cartDetail.id}|}" th:method="patch">
+								<td><img
+									th:src="'data:image/jpeg;base64,' + ${cartDetail.book.image}"
+									alt="Book Image" width="90" height="110" /></td>
+								<td><a th:text="${cartDetail.book.title}"
+									class="product-name"></a></td>
+								<td
+									th:text="${#numbers.formatDecimal(cartDetail.book.price, 1, 0) + '₫'}"></td>
+								<td><input type="number" name="quantity"
+									th:value="${cartDetail.quantity}" min="1"></td>
+								<td
+									th:text="${#numbers.formatDecimal(cartDetail.book.price * cartDetail.quantity, 1, 0)} + '₫'"></td>
+								<td class="update"><input type="hidden" name="cartDetailId"
+									th:value="${cartDetail.id}" />
+									<button type="submit" class="update-btn">
+										<i class="fa fa-refresh"></i>
+									</button></td>
+							</form>
+							<!-- Form xóa sản phẩm -->
+							<form th:action="@{|/carts/${cartDetail.id}|}" th:method="delete">
+								<input type="hidden" name="userId" th:value="${userId}" /> <input
+									type="hidden" name="cartDetailId" th:value="${cartDetail.id}" />
+								<td>
+									<button type="submit" class="remove-btn">
+										<i class="fa fa-trash-o"></i>
+									</button>
+								</td>
+							</form>
 						</tr>
 						<tr>
 							<td></td>
