@@ -1,9 +1,20 @@
 package com.example.bookstore.entity;
 
-import jakarta.persistence.*;
-
 import java.util.Date;
 import java.util.Set;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 
 @Entity
@@ -22,7 +33,8 @@ public class Order {
     }
 
     @Column(name = "status")
-    private Enum<Status> status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @Column(name = "payment_method")
     private String paymentMethod;
@@ -40,7 +52,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(Date orderDate, Enum<Status> status, String paymentMethod, double totalPrice, User user, Set<OrderDetail> orderDetails) {
+    public Order(Date orderDate, Status status, String paymentMethod, double totalPrice, User user, Set<OrderDetail> orderDetails) {
         this.orderDate = orderDate;
         this.status = status;
         this.paymentMethod = paymentMethod;
@@ -69,7 +81,7 @@ public class Order {
         return status;
     }
 
-    public void setStatus(Enum<Status> status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
