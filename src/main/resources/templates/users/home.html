@@ -59,30 +59,69 @@
         </div>
     </div>
 
-    <div class="featured-books">
-        <h2>Danh sách quan tâm</h2>
-        <div class="filters">
-            <span class="filter-active">Mới nhất</span>
-            <span>Bán chạy</span>
-            <span>Đánh giá cao</span>
-        </div>
-        <div class="book-grid">
-            <div class="book-card">
-                <div class="discount">Bán chạy</div>
-                <div class="book-image">
-                    <img src="url-to-image" alt="Featured Book Image" />
+        <div class="featured-books">
+            <h2>Danh sách quan tâm</h2>
+            <div class="filters">
+                <span class="filter-active">Mới nhất</span>
+                <span>Bán chạy</span>
+                <span>Đánh giá cao</span>
+            </div>
+            <div id="best-selling" class="book-grid2">
+                <!-- Best-selling books -->
+                <div th:each="book : ${bestSellingBooks}" class="book-card">
+                    <div class="book-image">
+                        <img th:src="'data:image/jpeg;base64,' + ${book.image}" alt="Book Image" />
+                    </div>
+                    <div class="book-info">
+                        <h3 th:text="${book.title}">Book Title</h3>
+                        <div class="ratings">
+                            <span th:text="${book.rating}">Rating</span>
+                        </div>
+                        <div class="price">
+                            <span class="current-price" th:text="${book.price + 'đ'}">Price</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="book-info">
-                    <h3>Tên sách</h3>
-                    <div class="ratings"></div>
-                    <div class="price">
-                        <span class="current-price">54.000đ</span>
-                        <span class="original-price">100.000đ</span>
+            </div>
+            <div id="top-rated" class="book-grid2">
+                <!-- Top-rated books -->
+                <div th:each="book : ${topRatedBooks}" class="book-card">
+                    <div class="book-image">
+                        <img th:src="'data:image/jpeg;base64,' + ${book.image}" alt="Book Image" th:alt="${book.title}" />
+                    </div>
+                    <div class="book-info">
+                        <h3 th:text="${book.title}">Tên sách</h3>
+                        <div class="ratings">
+                            <span th:text="${book.rating}">Đánh giá</span>
+                        </div>
+                        <div class="price">
+                            <span class="current-price" th:text="${book.price + 'đ'}">Giá hiện tại</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</main>
+        <div class="book-list">
+            <h2>Danh sách sách</h2>
+            <div class="book-grid">
+                <div class="book-card" th:each="book : ${books}">
+                    <div class="book-image">
+                        <img th:src="'data:image/jpeg;base64,' + ${book.image}" alt="Book Image" />
+                    </div>
+                    <div class="book-info">
+                        <h3 th:text="${book.title}">Book Title</h3>
+                        <div class="ratings">
+                            <!-- Display star ratings based on the rating -->
+                            <span th:text="${book.rating}">Rating</span>
+                        </div>
+                        <div class="price">
+                            <span class="current-price" th:text="${book.price + 'đ'}">Price</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Repeat the book-card div for more books -->
+            </div>
+        </div>
+    </main>
 </body>
 </html>

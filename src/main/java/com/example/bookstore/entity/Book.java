@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.util.Set;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "books")
 public class Book {
@@ -28,6 +30,9 @@ public class Book {
     @Column(name = "image", columnDefinition = "LONGTEXT") // This column now holds the Base64 encoded image data
     private String image;
 
+    @Column(name = "time_arrived")
+    private LocalDateTime timeArrived;
+
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private Set<BookCategory> bookCategories;
 
@@ -43,13 +48,14 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, double price, double rating, int stockQuantity, Set<BookCategory> bookCategories, String image) {
+    public Book(String title, double price, double rating, int stockQuantity, Set<BookCategory> bookCategories, String image, LocalDateTime timeArrived) {
         this.title = title;
         this.price = price;
         this.rating = rating;
         this.stockQuantity = stockQuantity;
         this.bookCategories = bookCategories;
         this.image = image;
+        this.timeArrived = timeArrived;
     }
 
     public int getId() {
@@ -100,6 +106,14 @@ public class Book {
         this.image = image;
     }
 
+    public LocalDateTime getTimeArrived() {
+        return timeArrived;
+    }
+
+    public void setTimeArrived(LocalDateTime timeArrived) {
+        this.timeArrived = timeArrived;
+    }
+
     public Set<BookCategory> getBookCategories() {
         return bookCategories;
     }
@@ -132,6 +146,7 @@ public class Book {
                 ", price=" + price +
                 ", rating=" + rating +
                 ", stockQuantity=" + stockQuantity +
+                ", timeArrived=" + timeArrived +
                 '}';
     }
 }
