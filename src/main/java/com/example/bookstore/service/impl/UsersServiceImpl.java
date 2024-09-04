@@ -5,7 +5,6 @@ import com.example.bookstore.dto.RegistersUser;
 import com.example.bookstore.entity.Role;
 import com.example.bookstore.service.RolesService;
 import com.example.bookstore.service.UsersService;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.bookstore.entity.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import java.util.Collection;
@@ -22,7 +22,7 @@ import java.util.Optional;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class UsersServiceImpl implements UsersService {
     @Autowired
     private UsersRepository usersRepository;
@@ -36,6 +36,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public User saveUser(User user) {
         return usersRepository.save(user);
     }
@@ -46,6 +47,7 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public User convertRegisterUserToUser(RegistersUser registersUser) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
@@ -65,11 +67,13 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    @Transactional(readOnly = false)
     public void updateUser(User user) {
         usersRepository.updateUser(user.getId(), user.getRole());
     }
 
     @Override
+    @Transactional(readOnly = false)
     public void deleteById(int id) {
         usersRepository.deleteById(id);
     }
