@@ -40,4 +40,25 @@ public class CartsServiceImpl implements CartsService {
         }
         return Collections.emptyList();
     }
+
+	@Override
+	public void updateCartItem(int cartDetailId, int quantity) {
+		CartDetail cartDetail = cartDetailsRepository.findById(cartDetailId).orElse(null);
+		if (cartDetail != null && quantity > 0) {
+			cartDetail.setQuantity(quantity);
+			cartDetailsRepository.save(cartDetail);
+		}
+		
+	}
+
+	@Override
+	public void removeCartItem(int cartDetailId) {
+		cartDetailsRepository.deleteCartDetailById(cartDetailId);
+		
+	}
+
+	@Override
+	public CartDetail findCartDetailById(int cartDetailId) {
+		return cartDetailsRepository.findById(cartDetailId).orElse(null);
+	}
 }

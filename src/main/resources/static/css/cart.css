@@ -126,7 +126,9 @@ input[type="number"] {
 	font-size: 14px;
 	border-radius: 5px;
 }
-
+.update-btn:hover{
+	background-color: #c82333;
+}
 .remove-btn:hover {
 	background-color: #c82333;
 }

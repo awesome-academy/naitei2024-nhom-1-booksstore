@@ -10,4 +10,7 @@ import com.example.bookstore.entity.CartDetail;
 public interface CartsService {
 
 	List<CartDetail> getCartInfoByUserId(int userId);
+	void updateCartItem(int cartDetailId, int quantity);
+	void removeCartItem(int cartDetailId);
+	CartDetail findCartDetailById(int cartDetailId);
 }
