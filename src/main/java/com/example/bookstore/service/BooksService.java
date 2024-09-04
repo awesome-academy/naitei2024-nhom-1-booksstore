@@ -10,6 +10,8 @@ public interface BooksService {
 
     void save(Book book);
 
+    List<Book> findAll();
+
     Page<Book> findAll(Pageable pageable);
 
     Page<Book> findByTitle(String title, Pageable pageable);

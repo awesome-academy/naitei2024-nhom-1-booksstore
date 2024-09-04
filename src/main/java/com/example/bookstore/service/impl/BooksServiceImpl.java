@@ -23,6 +23,11 @@ public class BooksServiceImpl implements BooksService {
     }
 
     @Override
+    public List<Book> findAll() {
+        return booksRepository.findAll();
+    }
+
+    @Override
     public Page<Book> findAll(Pageable pageable) {
         return booksRepository.findAll(pageable);
     }

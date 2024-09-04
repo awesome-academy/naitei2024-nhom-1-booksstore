@@ -7,6 +7,7 @@ import com.example.bookstore.service.CategoriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,5 +27,15 @@ public class CategoryServicesImpl implements CategoriesService {
             throw new CategoryNotFoundException("Danh mục không tồn tại.");
         }
         return category;
+    }
+
+    @Override
+    public Category getById(Integer id) {
+        return categoryRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Category> getByAll() {
+        return categoryRepository.findAll();
     }
 }
