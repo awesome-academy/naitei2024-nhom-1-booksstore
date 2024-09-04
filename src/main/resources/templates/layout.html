@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/users/layout.css" />
+    <link rel="stylesheet" href="/css/users/common/layout.css" />
 </head>
 
 <body>
@@ -11,7 +12,27 @@
 <header th:fragment="header">
     <div class="contact-info">
         <span>Liên hệ: <strong>0708-744-001</strong> (Call/Zalo)</span>
-        <span class="right">Hướng dẫn đặt sách | Theo dõi đơn hàng | Tài Khoản</span>
+        <span class="right">
+            <a th:href="@{/guide}" style="color:inherit; text-decoration:none;">Hướng dẫn đặt sách</a> |
+            <a th:href="@{/track}" style="color:inherit; text-decoration:none;">Theo dõi đơn hàng</a> |
+            <!-- Authenticated user -->
+            <span sec:authorize="isAuthenticated()" class="dropdown">
+                <a th:href="@{/account}" style="color:inherit; text-decoration:none;" class="dropdown-toggle">
+                    <span th:text="${#authentication.name}">Tài Khoản</span>
+                </a>
+                <div class="dropdown-content">
+                    <a th:href="@{/account}">Tài khoản</a>
+                    <a th:href="@{/sessions/login}">Đăng xuất</a>
+                </div>
+            </span>
+
+            <!-- Unauthenticated user -->
+            <span sec:authorize="!isAuthenticated()">
+                <a th:href="@{/sessions/login}" style="color:inherit; text-decoration:none;">
+                    Đăng nhập/đăng ký
+                </a>
+            </span>
+        </span>
     </div>
     <div class="logo-search-cart">
         <div class="logo">

@@ -4,16 +4,17 @@ import java.security.Principal;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import com.example.bookstore.service.CartsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
 import com.example.bookstore.entity.CartDetail;
 import com.example.bookstore.entity.User;
-import com.example.bookstore.service.CartService;
 import com.example.bookstore.service.UsersService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -21,7 +22,7 @@ public class CartsController {
 	@Autowired
 	private UsersService usersService;
 	@Autowired
-	private CartService cartService;
+	private CartsService cartsService;
 
 	@GetMapping("/cart")
 	public String showCart(@RequestParam(value = "userId", required = false) Integer userId, Model model,
@@ -46,7 +47,7 @@ public class CartsController {
 			model.addAttribute("error", "Bạn không có quyền xem giỏ hàng của người khác.");
 			return "users/home";
 		}
-		List<CartDetail> cartDetails = cartService.getCartInfoByUserId(userId);
+		List<CartDetail> cartDetails = cartsService.getCartInfoByUserId(userId);
 		model.addAttribute("cartDetails", cartDetails);
 		double subtotal = cartDetails.stream().mapToDouble(cd -> cd.getBook().getPrice() * cd.getQuantity()).sum();
 		DecimalFormat decimalFormat = new DecimalFormat("#,###");
@@ -54,5 +55,4 @@ public class CartsController {
 		model.addAttribute("subtotal", formattedSubtotal);
 		return "users/cart";
 	}
-
 }
