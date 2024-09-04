@@ -5,6 +5,7 @@ import com.example.bookstore.dto.RegistersUser;
 import com.example.bookstore.entity.Role;
 import com.example.bookstore.service.RolesService;
 import com.example.bookstore.service.UsersService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.example.bookstore.entity.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,8 +19,10 @@ import org.springframework.ui.Model;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
+import java.util.List;
 
 @Service
+@Transactional
 public class UsersServiceImpl implements UsersService {
     @Autowired
     private UsersRepository usersRepository;
@@ -38,6 +41,11 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
+    public User getById(int id) {
+        return usersRepository.findById(id);
+    }
+
+    @Override
     public User convertRegisterUserToUser(RegistersUser registersUser) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
@@ -49,6 +57,21 @@ public class UsersServiceImpl implements UsersService {
         user.setAddress(registersUser.getAddress());
         user.setRole(rolesService.findByName("ROLE_CUSTOMER"));
         return user;
+    }
+
+    @Override
+    public List<User> getAll() {
+        return usersRepository.findAll();
+    }
+
+    @Override
+    public void updateUser(User user) {
+        usersRepository.updateUser(user.getId(), user.getRole());
+    }
+
+    @Override
+    public void deleteById(int id) {
+        usersRepository.deleteById(id);
     }
 
     @Override
@@ -66,7 +89,7 @@ public class UsersServiceImpl implements UsersService {
 
 	@Override
 	public User findById(int useId) {
-		Optional<User> user = usersRepository.findById(useId);
+		Optional<User> user = Optional.ofNullable(usersRepository.findById(useId));
         return user.orElse(null); 
 	}
 }

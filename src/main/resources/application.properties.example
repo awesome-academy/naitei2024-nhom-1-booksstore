@@ -5,3 +5,6 @@ spring.datasource.password=${SPRING_DATASOURCE_PASSWORD}
 spring.jpa.show-sql=true
 spring.jpa.hibernate.ddl-auto = update
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+
+#Cái này để dùng đc method th:method="put" với th:method="delete"
+spring.mvc.hiddenmethod.filter.enabled=true
