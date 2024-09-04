@@ -121,3 +121,11 @@ body {
 .book-category strong {
     font-weight: bold;
 }
+
+.notification-line {
+    color: #ff7700;
+    font-weight: bold;
+    font-style: italic;
+    margin-top: 10px;
+    display: none;
+}
