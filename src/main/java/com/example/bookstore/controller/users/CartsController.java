@@ -59,6 +59,7 @@ public class CartsController extends BaseController {
 		model.addAttribute("subtotal", formattedSubtotal);
 		return "users/cart";
 	}
+
 	@PatchMapping("/carts/{cartDetailId}")
 	public String updateCartItem(@PathVariable("cartDetailId") int cartDetailId, @RequestParam("quantity") int quantity,
 			Principal principal, Model model) {
@@ -86,6 +87,17 @@ public class CartsController extends BaseController {
 		}
 		cartsService.removeCartItem(cartDetailId);
 		return "redirect:/cart?userId=" + user.getId();
+	}
+
+	@PostMapping("/cart/add")
+	public String addCartItem(@RequestParam("bookId") int bookId, @RequestParam("quantity") int quantity, Model model,
+			Principal principal) {
+		User user = getLoggedInUser(principal, model);
+		if (user == null) {
+			return "redirect:/sessions/login";
+		}
+		cartsService.addCartItem(user.getId(), bookId, quantity);
+		return "redirect:/books/" + bookId;
 	}
 
 }

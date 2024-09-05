@@ -13,4 +13,5 @@ public interface CartsService {
 	void updateCartItem(int cartDetailId, int quantity);
 	void removeCartItem(int cartDetailId);
 	CartDetail findCartDetailById(int cartDetailId);
+	void addCartItem(int userId, int bookId, int quantity);
 }
