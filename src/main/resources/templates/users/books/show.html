@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title th:text="${book.title} + ' - JBooks'">Book Detail - JBooks</title>
     <link rel="stylesheet" href="/css/users/books/show.css" />
-    <style>
-
-    </style>
+    <script src="/js/users/books/show.js"></script>
 </head>
 
 <body>
@@ -15,7 +16,7 @@
     <div class="book-detail">
         <h1 th:text="${book.title}">Book Title</h1>
         <div class="book-rating">
-            <span th:text="${book.rating + ' đánh giá từ khách hàng'}">0 đánh giá từ khách hàng</span>
+            <span style="font-weight: bold;" th:text="${'Đánh giá từ khách hàng: ' + book.rating + '/5'}">0 đánh giá từ khách hàng</span>
         </div>
 
         <div class="book-content">
@@ -41,10 +42,53 @@
                 </div>
             </div>
         </div>
+
+        <div class="reviews-display-section">
+            <h2>Đánh giá</h2>
+
+            <div th:if="${#lists.isEmpty(reviews)}">
+                <p>Tạm thời chưa có đánh giá.</p>
+            </div>
+
+            <div th:each="review : ${reviews}" class="review">
+                <div class="avatar">
+                    <img src="/images/avatar.png" alt="User Avatar" />
+                </div>
+                <div class="review-content">
+                    <span class="username" th:text="${review.user.username}">Demo username</span>
+                    <div class="rating">
+                        <span th:each="i : ${#numbers.sequence(1, review.rating)}">★</span>
+                        <span th:if="${review.rating < 5}" th:each="i : ${#numbers.sequence(review.rating + 1, 5)}" style="color: #ddd; left: 0">★</span>
+                    </div>
+                    <p th:text="${review.content}">Review Content</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-section">
+            <h2>Thêm Đánh Giá</h2>
+
+            <div sec:authorize="isAnonymous()">
+                <p>Đăng nhập để thêm đánh giá</p>
+            </div>
+
+            <form sec:authorize="isAuthenticated()" th:action="@{/books/{id}/reviews(id=${book.id})}" method="post" id="review-form">
+                <label for="rating">Đánh giá của bạn *</label>
+                <div class="rating" id="star-rating">
+                    <span class="star" data-value="1">★</span>
+                    <span class="star" data-value="2">★</span>
+                    <span class="star" data-value="3">★</span>
+                    <span class="star" data-value="4">★</span>
+                    <span class="star" data-value="5">★</span>
+                </div>
+                <input type="hidden" id="rating" name="rating" value="0">
+                <label for="comment">Nhận xét của bạn *</label>
+                <textarea id="comment" name="content" required></textarea>
+                <button type="submit" class="submit-button">Gửi Đi</button>
+            </form>
+        </div>
     </div>
 </main>
-
-
 
 </body>
 </html>
