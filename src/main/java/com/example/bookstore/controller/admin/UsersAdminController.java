@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@Controller("adminUsersController")
 @RequestMapping("/admin/users")
 public class UsersAdminController {
 
