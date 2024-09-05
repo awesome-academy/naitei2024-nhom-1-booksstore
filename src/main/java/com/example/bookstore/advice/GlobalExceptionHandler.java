@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(OrderNotFoundException.class)
     public String handle(OrderNotFoundException ex, Model model) {
         model.addAttribute("errorMessage", ex.getMessage());
-        return "users/purchase";
+        return "users/orders/index";
     }
 
     @ExceptionHandler(RuntimeException.class)

@@ -9,13 +9,13 @@
 
 <body>
     <main layout:fragment="content" class="content">
-        <div class="tabs">
-                <a href="#" class="active">Tất cả</a>
-                <a href="#">Chờ xác nhận</a>
-                <a href="#">Đang Vận chuyển</a>
-                <a href="#">Hoàn thành</a>
-                <a href="#">Đã huỷ</a>
-         </div>
+		<div class="tabs">
+		    <a th:classappend="${selectedStatus == 'ALL'} ? 'active'" th:href="@{/user/orders?status=ALL}">Tất cả</a>
+		    <a th:classappend="${selectedStatus == 'PENDING'} ? 'active'" th:href="@{/user/orders?status=PENDING}">Chờ xác nhận</a>
+		    <a th:classappend="${selectedStatus == 'COMPLETED'} ? 'active'" th:href="@{/user/orders?status=COMPLETED}">Hoàn thành</a>
+		    <a th:classappend="${selectedStatus == 'CANCELLED'} ? 'active'" th:href="@{/user/orders?status=CANCELLED}">Đã huỷ</a>
+		</div>
+
          
          <!-- Message if no orders are available -->
             <div th:if="${errorMessage}" class="no-orders-message text-center">
