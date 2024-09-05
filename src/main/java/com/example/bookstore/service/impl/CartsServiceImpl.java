@@ -61,4 +61,26 @@ public class CartsServiceImpl implements CartsService {
 	public CartDetail findCartDetailById(int cartDetailId) {
 		return cartDetailsRepository.findById(cartDetailId).orElse(null);
 	}
-}
+
+	@Override
+	public void addCartItem(int userId, int bookId, int quantity) {
+		 Cart cart = cartsRepository.findByUserId(userId);
+		 User user = usersRepository.findById(userId);
+	        if (cart == null) {
+	            cart = new Cart();
+	            cart.setUser(user);
+	            cart = cartsRepository.save(cart);
+	        }
+	        Book book = booksRepository.findById(bookId).orElse(null);
+	        if (book != null) {
+	            CartDetail cartDetail = cartDetailsRepository.findByCartIdAndBookId(cart.getId(), bookId);
+	            if (cartDetail == null) {
+	                cartDetail = new CartDetail(cart, book);
+	                cartDetail.setQuantity(quantity);
+	            } else {
+	                cartDetail.setQuantity(cartDetail.getQuantity() + quantity);
+	            }
+	            cartDetailsRepository.save(cartDetail);
+	        }
+	    }
+	}
