@@ -10,6 +10,7 @@ import com.example.bookstore.exception.BookNotFoundException;
 import com.example.bookstore.service.BooksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -97,5 +98,15 @@ public class BooksServiceImpl implements BooksService {
     public Book findById(Integer id) {
         return booksRepository.findById(id)
                 .orElseThrow(() -> new BookNotFoundException("Không tìm thấy sản phẩm."));
+    }
+
+    @Override
+    public List<Book> findTopRatedBooks() {
+        return booksRepository.findTopRatedBooks(PageRequest.of(0, 6)).getContent();
+    }
+
+    @Override
+    public List<Book> findBestSellingBooks() {
+        return booksRepository.findBestSellingBooks(PageRequest.of(0, 6)).getContent();
     }
 }

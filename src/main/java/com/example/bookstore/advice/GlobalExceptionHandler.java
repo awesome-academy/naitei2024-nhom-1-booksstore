@@ -7,6 +7,7 @@ import com.example.bookstore.exception.OrderNotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -29,6 +30,11 @@ public class GlobalExceptionHandler {
     public String handle(OrderNotFoundException ex, Model model) {
         model.addAttribute("errorMessage", ex.getMessage());
         return "users/purchase";
+    }
+
+    @ExceptionHandler(NoResourceFoundException.class)
+    public String handle404(NoResourceFoundException ex, Model model) {
+        return "users/error/404";
     }
 
     @ExceptionHandler(RuntimeException.class)
