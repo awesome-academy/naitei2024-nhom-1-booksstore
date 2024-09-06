@@ -28,6 +28,9 @@ public class HomeController {
                        @RequestParam(value = "page", defaultValue = "0") int page,
                        @RequestParam(value = "size", defaultValue = "6") int size) {
         Page<Book> books;
+        List<Book> topRatedBooks = booksService.findTopRatedBooks();
+        List<Book> bestSellingBooks = booksService.findBestSellingBooks();
+
         if (search != null && !search.isEmpty()) {
             books = booksService.findByTitle(search, PageRequest.of(page, size));
         } else {
@@ -37,6 +40,10 @@ public class HomeController {
         model.addAttribute("totalPages", books.getTotalPages());
         model.addAttribute("currentPage", page);
         model.addAttribute("search", search);
+        model.addAttribute("topRatedBooks", topRatedBooks);
+        model.addAttribute("bestSellingBooks", bestSellingBooks);
+        model.addAttribute("defaultTab", bestSellingBooks);
+
         return "users/home";
     }
 }

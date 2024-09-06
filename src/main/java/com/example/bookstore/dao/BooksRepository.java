@@ -14,4 +14,10 @@ public interface BooksRepository extends JpaRepository<Book, Integer> {
 
     @Query("SELECT b FROM Book b JOIN b.bookCategories bc WHERE bc.category.id = :categoryId")
     Page<Book> findBooksByCategoryId(Integer categoryId, Pageable pageable);
+
+    @Query("SELECT b FROM Book b ORDER BY b.rating DESC")
+    Page<Book> findTopRatedBooks(Pageable pageable);
+
+    @Query("SELECT b FROM Book b JOIN OrderDetail od ON b.id = od.book.id GROUP BY b.id ORDER BY COUNT(od.book.id) DESC")
+    Page<Book> findBestSellingBooks(Pageable pageable);
 }

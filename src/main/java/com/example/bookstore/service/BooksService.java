@@ -23,4 +23,8 @@ public interface BooksService {
     Page<Book> findByCategoryId(Integer categoryId, Pageable pageable);
 
     Book findById(Integer id);
+
+    List<Book> findTopRatedBooks();
+
+    List<Book> findBestSellingBooks();
 }

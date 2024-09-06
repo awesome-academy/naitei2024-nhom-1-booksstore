@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sách tiếng Nhật JBooks</title>
     <link rel="stylesheet" href="/css/users/home/home.css" />
+    <script src="/js/users/home/home.js"></script>
 </head>
 
 <body>
@@ -30,7 +31,8 @@
                         <h3 th:text="${book.title}">Book Title</h3>
                         <div class="ratings">
                             <!-- Display the book's rating -->
-                            <span th:text="${book.rating}">Rating</span>
+                            <span th:text="${book.rating + '/5'}"></span>
+                            <span style="color: #ffcc00; font-size: 24px;">★</span>
                         </div>
                         <div class="price">
                             <!-- Display the book's price -->
@@ -62,24 +64,41 @@
     <div class="featured-books">
         <h2>Danh sách quan tâm</h2>
         <div class="filters">
-            <span class="filter-active">Mới nhất</span>
-            <span>Bán chạy</span>
-            <span>Đánh giá cao</span>
+            <span class="filter-active" id="bestSellersTab" onclick="showBestSellers()">Bán chạy</span>
+            <span id="topRatedTab" onclick="showTopRated()">Đánh giá cao</span>
         </div>
-        <div class="book-grid">
-            <div class="book-card">
-                <div class="discount">Bán chạy</div>
-                <div class="book-image">
-                    <img src="url-to-image" alt="Featured Book Image" />
-                </div>
-                <div class="book-info">
-                    <h3>Tên sách</h3>
-                    <div class="ratings"></div>
-                    <div class="price">
-                        <span class="current-price">54.000đ</span>
-                        <span class="original-price">100.000đ</span>
+
+        <div class="book-grid" id="bestSellersSection">
+            <div th:each="book : ${bestSellingBooks}" class="book-card">
+                <a th:href="@{/books/{id}(id=${book.id})}">
+                    <div class="discount">Bán chạy</div>
+                    <div class="book-image">
+                        <img th:src="'data:image/jpeg;base64,' + ${book.image}" alt="Best Seller Book Image" />
                     </div>
-                </div>
+                    <div class="book-info">
+                        <h3 th:text="${book.title}"></h3>
+                        <div class="price">
+                            <span class="current-price" th:text="${book.price} + 'đ'"></span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="book-grid" id="topRatedSection" style="display:none;">
+            <div th:each="book : ${topRatedBooks}" class="book-card">
+                <a th:href="@{/books/{id}(id=${book.id})}">
+                    <div class="discount">Đánh giá cao</div>
+                    <div class="book-image">
+                        <img th:src="'data:image/jpeg;base64,' + ${book.image}" alt="Top Rated Book Image" />
+                    </div>
+                    <div class="book-info">
+                        <h3 th:text="${book.title}"></h3>
+                        <div class="price">
+                            <span class="current-price" th:text="${book.price} + 'đ'"></span>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
