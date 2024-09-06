@@ -3,6 +3,8 @@ package com.example.bookstore.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,5 +63,9 @@ public class OrdersServiceImpl implements OrdersService {
 	public List<Order> findOrdersByUserIdAndStatus(Integer userId, Status status) {
 		List<Order> orders = ordersRepository.findOrdersByUserIdAndStatus(userId, status);
 		return orders;
+	}
+	@Override
+	public Page<Order> getAll(Pageable pageable) {
+		return ordersRepository.findAll(pageable);
 	}
 }
