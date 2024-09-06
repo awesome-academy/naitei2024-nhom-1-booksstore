@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sách tiếng Nhật JBooks</title>
-    <link rel="stylesheet" href="/css/users/orders/order.css" />
+    <link rel="stylesheet" href="/css/users/orders/index.css" />
 </head>
 
 <body>
@@ -33,7 +33,7 @@
 		            <div class="item-info">
 		                <h3 th:text="${detail.book.title}"></h3>
 		                <p>Số lượng: <span th:text="${detail.quantity}"></span></p>
-		                <p>Giá: <span th:text="${#numbers.formatDecimal(detail.price, 0, 'POINT', 3, 'COMMA')}"></span>đ</p>
+		                <p>Đơn giá: <span th:text="${#numbers.formatDecimal(detail.price, 0, 'POINT', 3, 'COMMA')}"></span>đ</p>
 		            </div>
 		        </div>  
 		    </div>
