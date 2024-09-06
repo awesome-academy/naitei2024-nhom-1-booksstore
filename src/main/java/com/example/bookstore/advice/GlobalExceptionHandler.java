@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(OrderNotFoundException.class)
     public String handle(OrderNotFoundException ex, Model model) {
         model.addAttribute("errorMessage", ex.getMessage());
-        return "users/orders/index";
+        return "users/orders/new";
     }
 
     @ExceptionHandler(NoResourceFoundException.class)

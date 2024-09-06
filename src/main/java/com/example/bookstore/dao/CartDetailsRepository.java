@@ -19,7 +19,10 @@ public interface CartDetailsRepository extends JpaRepository<CartDetail, Integer
 	CartDetail findByCartIdAndBookId(int cartId, int bookId);
 
 	@Modifying
-	@Transactional
 	@Query("DELETE FROM CartDetail cd WHERE cd.id = :cartDetailId")
 	void deleteCartDetailById(@Param("cartDetailId") int cartDetailId);
+	
+	@Modifying
+	@Query("DELETE FROM CartDetail cd WHERE cd.cart.id = :cartId")
+	void deleteByCartId(@Param("cartId") int cartId);
 }

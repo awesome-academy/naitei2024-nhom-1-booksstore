@@ -28,7 +28,7 @@ public class OrderDetail {
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     private Book book;
 

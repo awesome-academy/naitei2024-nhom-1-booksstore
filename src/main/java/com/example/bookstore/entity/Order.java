@@ -1,6 +1,7 @@
 package com.example.bookstore.entity;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -42,14 +43,15 @@ public class Order {
     @Column(name = "total_price")
     private double totalPrice;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private Set<OrderDetail> orderDetails;
+    private Set<OrderDetail> orderDetails = new HashSet<>();
 
     public Order() {
+        this.orderDetails = new HashSet<>();
     }
 
     public Order(Date orderDate, Status status, String paymentMethod, double totalPrice, User user, Set<OrderDetail> orderDetails) {
@@ -58,7 +60,7 @@ public class Order {
         this.paymentMethod = paymentMethod;
         this.totalPrice = totalPrice;
         this.user = user;
-        this.orderDetails = orderDetails;
+        this.orderDetails = orderDetails != null ? orderDetails : new HashSet<>();
     }
 
     public int getId() {
