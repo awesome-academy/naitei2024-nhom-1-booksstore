@@ -27,6 +27,9 @@
     border-bottom: 3px solid #ff5722;
 }
 
+.tabs a:hover {
+    color: #ff5722;
+}
 
 .order {
     background-color: white;
@@ -60,7 +63,7 @@
 }
 
 .order-item {
-    display: flex;
+	display: flex;
     align-items: center;
 }
 
@@ -68,6 +71,12 @@
     width: 100px;
     height: 100px;
     margin-right: 20px;
+}
+
+.item-info {
+	display: flex;
+	justify-content: space-between;
+    width: 100%
 }
 
 .item-info h3 {
@@ -104,3 +113,5 @@
     justify-content: center;
     align-items: center;
 }
+
+

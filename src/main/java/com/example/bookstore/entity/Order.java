@@ -29,7 +29,7 @@ public class Order {
     private Date orderDate;
 
     public enum Status {
-        PENDING, COMPLETED, CANCELED
+        PENDING, COMPLETED, CANCELLED
     }
 
     @Column(name = "status")
