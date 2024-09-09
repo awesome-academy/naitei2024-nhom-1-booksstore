@@ -3,6 +3,7 @@ package com.example.bookstore.security;
 import com.example.bookstore.service.UsersService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,6 +30,7 @@ public class SecurityConfiguration {
         httpSecurity.authorizeHttpRequests(
                 configurer -> configurer
                         .requestMatchers("/account").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/books/reviews/**").authenticated()
                         .anyRequest().permitAll()
         ).formLogin(
                 form -> form.loginPage("/sessions/login")
@@ -39,6 +41,8 @@ public class SecurityConfiguration {
                 logout -> logout.permitAll()
         ).exceptionHandling(
                 configurer -> configurer.accessDeniedPage("/showPage403")
+        ).csrf(csrf -> csrf
+                .ignoringRequestMatchers("/books/reviews/**")
         );
 
         return httpSecurity.build();

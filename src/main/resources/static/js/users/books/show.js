@@ -20,7 +20,44 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // delete review
+    const deleteModal = document.getElementById('deleteConfirmationModal');
+    let reviewToDelete = null;
+
+    window.showDeleteConfirmation = function(reviewId) {
+        reviewToDelete = reviewId;
+        deleteModal.style.display = 'block';
+    }
+
+    window.hideDeleteConfirmation = function() {
+        reviewToDelete = null;
+        deleteModal.style.display = 'none';
+    }
+
+    window.deleteReview = function() {
+        if (reviewToDelete === null) return;
+
+        const url = `/books/reviews/${reviewToDelete}`;
+        console.log('Sending DELETE request to:', url);
+
+        fetch(url, {
+            method: 'DELETE'
+        }).then(response => {
+            if (response.ok) {
+                console.log('Review deleted successfully');
+                location.reload(); // Reload the page to reflect the changes
+            } else {
+                console.error('Failed to delete review');
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+
+        hideDeleteConfirmation();
+    }
 });
+
 document.addEventListener('DOMContentLoaded', function () {
     const addToCartForm = document.getElementById('add-to-cart-form');
     const notification = document.getElementById('notification');
@@ -48,3 +85,4 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+

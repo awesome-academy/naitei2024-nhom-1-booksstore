@@ -8,4 +8,8 @@ public interface ReviewsService {
     List<Review> findReviewsByBookId(Integer bookId);
 
     void save(Review review);
+
+    void delete(Integer reviewId);
+
+    Review findById(Integer reviewId);
 }

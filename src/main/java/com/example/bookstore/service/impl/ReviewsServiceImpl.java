@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReviewsServiceImpl implements ReviewsService {
@@ -21,6 +22,12 @@ public class ReviewsServiceImpl implements ReviewsService {
     private BooksRepository booksRepository;
 
     @Override
+    public Review findById(Integer reviewId) {
+        Optional<Review> review = reviewsRepository.findById(reviewId);
+        return review.orElse(null);
+    }
+
+    @Override
     public List<Review> findReviewsByBookId(Integer bookId) {
         return reviewsRepository.findByBookId(bookId);
     }
@@ -30,6 +37,17 @@ public class ReviewsServiceImpl implements ReviewsService {
     public void save(Review review) {
         reviewsRepository.save(review);
         updateBookRating(review.getBook());
+    }
+
+    @Override
+    @Transactional
+    public void delete(Integer reviewId) {
+        Review review = findById(reviewId);
+
+        if (review != null) {
+            reviewsRepository.deleteById(reviewId);
+            updateBookRating(review.getBook());
+        }
     }
 
     private void updateBookRating(Book book) {
@@ -44,4 +62,5 @@ public class ReviewsServiceImpl implements ReviewsService {
         book.setRating(avgRating);
         booksRepository.save(book);
     }
+
 }
