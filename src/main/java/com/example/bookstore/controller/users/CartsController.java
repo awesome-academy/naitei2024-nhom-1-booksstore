@@ -29,29 +29,9 @@ public class CartsController extends BaseController {
 	private CartsService cartsService;
 
 	@GetMapping("/cart")
-	public String showCart(@RequestParam(value = "userId", required = false) Integer userId, Model model,
-			Principal principal) {
-		if (userId == null) {
-			model.addAttribute("error", "UserId is null");
-			return "users/home";
-		}
-		User user = usersService.findById(userId);
-		if (user == null) {
-			model.addAttribute("error", "User ID không tồn tại");
-			return "users/home";
-		}
-		if (principal == null) {
-			model.addAttribute("error", "Bạn chưa đăng nhập.");
-			return "users/home";
-		}
-		String loggedInUsername = principal.getName();
-		User loggedInUser = usersService.findByUsername(loggedInUsername);
-		Integer userIdObj = Integer.valueOf(userId);
-		if (!userIdObj.equals(loggedInUser.getId())) {
-			model.addAttribute("error", "Bạn không có quyền xem giỏ hàng của người khác.");
-			return "users/home";
-		}
-		List<CartDetail> cartDetails = cartsService.getCartInfoByUserId(userId);
+	public String showCart(Model model, Principal principal) {
+		User user = getLoggedInUser(principal, model);
+		List<CartDetail> cartDetails = cartsService.getCartInfoByUserId(user.getId());
 		model.addAttribute("cartDetails", cartDetails);
 		double subtotal = cartDetails.stream().mapToDouble(cd -> cd.getBook().getPrice() * cd.getQuantity()).sum();
 		DecimalFormat decimalFormat = new DecimalFormat("#,###");
