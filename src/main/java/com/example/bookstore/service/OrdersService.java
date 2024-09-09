@@ -14,4 +14,5 @@ public interface OrdersService {
 	List<Order> findOrdersByUserId(Integer userId);
 	List<Order> findOrdersByUserIdAndStatus(Integer userId, Status status);
     Page<Order> getAll(Pageable pageable);
+	Order findOrderByIdWithDetails(Integer orderId);
 }

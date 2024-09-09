@@ -1,6 +1,6 @@
 package com.example.bookstore.service.impl;
 
-import com.example.bookstore.dao.OrdersDetailsRepository;
+import com.example.bookstore.dao.OrderDetailsRepository;
 import com.example.bookstore.dto.BooksOrders;
 import com.example.bookstore.entity.Book;
 import com.example.bookstore.service.OrdersDetailsService;
@@ -18,7 +18,7 @@ import java.util.List;
 public class OrdersDetailsServiceImpl implements OrdersDetailsService {
 
     @Autowired
-    private OrdersDetailsRepository ordersDetailsRepository;
+    private OrderDetailsRepository ordersDetailsRepository;
 
     @Override
     public List<Book> findBooksByOrderId(int id) {

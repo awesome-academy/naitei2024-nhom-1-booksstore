@@ -13,7 +13,7 @@ import com.example.bookstore.entity.OrderDetail;
 import java.util.List;
 
 @Repository
-public interface OrdersDetailsRepository extends JpaRepository<OrderDetail, Integer> {
+public interface OrderDetailsRepository extends JpaRepository<OrderDetail, Integer> {
     @Query("SELECT od.book FROM OrderDetail od WHERE od.order.id = :orderId")
     List<Book> findBooksByOrderId(@Param("orderId") int orderId);
 
