@@ -39,7 +39,7 @@
 		    </div>
 		    <div class="order-footer">
 		        <div>
-		            <button class="btn">Chi tiết đơn hàng</button>
+		            <a th:href="@{/user/{orderId}(orderId=${order.id})}" class="btn">Chi tiết đơn hàng</a>
 		            <button class="btn">Đánh giá</button>
 		        </div>
 		        <div class="total">
