@@ -30,7 +30,6 @@
 					th:text="${#numbers.formatDecimal(order.totalPrice, 0, 'POINT', 3, 'COMMA')}"></span>đ
 			</p>
 		</div>
-
 		<div class="order-details">
 			<h2>Chi tiết sản phẩm</h2>
 			<div th:each="detail : ${order.orderDetails}">
