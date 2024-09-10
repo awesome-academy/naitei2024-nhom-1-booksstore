@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -26,13 +27,16 @@ public class BooksController {
     private UsersService usersService;
 
     @GetMapping("/{id}")
-    public String show(@PathVariable Integer id, Model model) {
+    public String show(@PathVariable Integer id, Model model, Principal principal) {
         Book book = booksService.findById(id);
         model.addAttribute("book", book);
         model.addAttribute("categories", book.getBookCategories());
 
         List<Review> reviews = reviewsService.findReviewsByBookId(id);
         model.addAttribute("reviews", reviews);
+        if (principal != null) {
+            model.addAttribute("loggedInUsername", principal.getName());
+        }
 
         return "users/books/show";
     }
