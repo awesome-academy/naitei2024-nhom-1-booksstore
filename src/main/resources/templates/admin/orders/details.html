@@ -18,14 +18,27 @@
                 <a class="text-black" href="#">Orders details</a>
             </div>
             <div>
-                <a class="btn btn-success text-white">
+                <a th:if="${checkBookStatusInOrder}"
+                   th:href="@{'/admin/orders/' + ${orderId} + '/confirmation'}"
+                   class="btn btn-success text-white">
                     Accept
                 </a>
-                <a class="btn btn-danger text-white">
+                <a th:href="@{'/admin/orders/' + ${orderId} + '/reject'}"
+                   class="btn btn-danger text-white">
                     Reject
                 </a>
             </div>
         </h3>
+
+        <h4 class="ml-3">Customer information</h4>
+        <table class="table">
+            <ul>
+                <li th:text="${user.username}"></li>
+                <li th:text="${user.email}"></li>
+                <li th:text="${user.address}"></li>
+                <li th:text="${user.phoneNumber}"></li>
+            </ul>
+        </table>
 
 
         <div class="table-responsive bg-light">

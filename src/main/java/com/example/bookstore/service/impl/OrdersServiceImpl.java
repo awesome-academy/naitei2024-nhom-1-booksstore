@@ -75,4 +75,21 @@ public class OrdersServiceImpl implements OrdersService {
 		return ordersRepository.findOrderByIdWithDetails(orderId)
 				.orElseThrow(() -> new OrderNotFoundException("Order not found with id" + orderId));
 	}
+
+    @Override
+	@Transactional
+	public void acceptOrders(int orderId) {
+		ordersRepository.changeStatusToCompleted(orderId);
+	}
+
+	@Override
+	@Transactional
+	public void rejectOrders(int orderId) {
+		ordersRepository.changeStatusToCancelled(orderId);
+	}
+
+	@Override
+	public User findUserByOrderId(int id) {
+		return ordersRepository.findUserByOrderId(id);
+	}
 }

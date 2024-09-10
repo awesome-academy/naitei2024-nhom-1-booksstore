@@ -17,4 +17,6 @@ public interface OrdersDetailsService {
     List<BooksOrders> createBooksOrdersList(List<BooksOrders> booksOrdersList, int id);
 
     void RemoveBookFromOrder(int bookId);
+
+    boolean checkOrder(List<BooksOrders> booksOrdersList);
 }
