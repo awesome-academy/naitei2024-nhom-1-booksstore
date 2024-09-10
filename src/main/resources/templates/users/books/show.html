@@ -67,18 +67,37 @@
 					<p>Tạm thời chưa có đánh giá.</p>
 				</div>
 
+<!--				<div th:each="review : ${reviews.content}" class="review">-->
+<!--					<div class="avatar">-->
+<!--						<img src="/images/avatar.png" alt="User Avatar" />-->
+<!--					</div>-->
+<!--					<div class="review-content">-->
+<!--						<span class="username" th:text="${review.user.username}">Demo-->
+<!--							username</span>-->
+<!--						<div class="rating">-->
+<!--							<span th:each="i : ${#numbers.sequence(1, review.rating)}">★</span>-->
+<!--							<span th:if="${review.rating < 5}"-->
+<!--								th:each="i : ${#numbers.sequence(review.rating + 1, 5)}"-->
+<!--								style="color: #ddd; left: 0">★</span>-->
+<!--						</div>-->
+<!--						<p th:text="${review.content}">Review Content</p>-->
+
+<!--						<div sec:authorize="isAuthenticated()">-->
+<!--							<div th:if="${review.user.username == loggedInUsername}">-->
+<!--								<button class="delete-btn" th:attr="onclick=${'showDeleteConfirmation(' + review.id + ')'}">Xóa</button>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
 				<div th:each="review : ${reviews}" class="review">
 					<div class="avatar">
-						<img src="/images/avatar.png" alt="User Avatar" />
+						<img src="/images/avatar.png" alt="User Avatar"/>
 					</div>
 					<div class="review-content">
-						<span class="username" th:text="${review.user.username}">Demo
-							username</span>
+						<span class="username" th:text="${review.user.username}">Demo username</span>
 						<div class="rating">
 							<span th:each="i : ${#numbers.sequence(1, review.rating)}">★</span>
-							<span th:if="${review.rating < 5}"
-								th:each="i : ${#numbers.sequence(review.rating + 1, 5)}"
-								style="color: #ddd; left: 0">★</span>
+							<span th:if="${review.rating < 5}" th:each="i : ${#numbers.sequence(review.rating + 1, 5)}" style="color: #ddd; left: 0">★</span>
 						</div>
 						<p th:text="${review.content}">Review Content</p>
 
@@ -95,6 +114,23 @@
 					<button onclick="deleteReview()">Có</button>
 					<button onclick="hideDeleteConfirmation()">Không</button>
 				</div>
+
+				<div class="pagination" th:if="${totalPages > 0}">
+					<ul>
+						<li th:if="${currentPage > 0}">
+							<a th:href="@{/books/{id}(id=${book.id}, page=${currentPage - 1}, size=4)}">&laquo; Previous</a>
+						</li>
+						<li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}"
+							th:class="${pageNum == currentPage} ? 'active'">
+							<a th:href="@{/books/{id}(id=${book.id}, page=${pageNum}, size=4)}" th:text="${pageNum + 1}">1</a>
+						</li>
+						<li th:if="${currentPage < totalPages - 1}">
+							<a th:href="@{/books/{id}(id=${book.id}, page=${currentPage + 1}, size=4)}">Next &raquo;</a>
+						</li>
+					</ul>
+				</div>
+
+
 			</div>
 
 			<div class="review-section">
