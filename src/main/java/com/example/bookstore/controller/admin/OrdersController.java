@@ -2,6 +2,7 @@ package com.example.bookstore.controller.admin;
 
 import com.example.bookstore.dto.BooksOrders;
 import com.example.bookstore.entity.Order;
+import com.example.bookstore.entity.User;
 import com.example.bookstore.service.OrdersDetailsService;
 import com.example.bookstore.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,9 +69,11 @@ public class OrdersController {
         List<BooksOrders> booksOrdersList = new ArrayList<>();
         booksOrdersList = ordersDetailsService.createBooksOrdersList(booksOrdersList, id);
         Page<BooksOrders> booksOrders = ordersDetailsService.convertListToPage(booksOrdersList, pageable);
+        User user = ordersService.findUserByOrderId(id);
 
         model.addAttribute("booksOrders", booksOrders);
         model.addAttribute("orderId", id);
+        model.addAttribute("user", user);
 
         int totalPages = booksOrders.getTotalPages();
         if (totalPages <= 0) {
@@ -81,12 +84,35 @@ public class OrdersController {
                 .collect(Collectors.toList());
         model.addAttribute("pageNumbers", pageNumbers);
 
+        boolean checkBookStatusInOrder= ordersDetailsService.checkOrder(booksOrdersList);
+        model.addAttribute("checkBookStatusInOrder", checkBookStatusInOrder);
         return "admin/orders/details";
     }
 
     @GetMapping("/{orderId}/book/{id}")
     public String removeBookInOrder(@PathVariable("id") Integer id, Model model) {
         ordersDetailsService.RemoveBookFromOrder(id);
+        return "redirect:/admin/orders";
+    }
+
+    @GetMapping("/{orderId}/confirmation")
+    public String confirmOrders(@PathVariable("orderId") Integer orderId, Model model) {
+        String notification;
+        notification = "The products are in sufficient quantity in stock, are you sure you want to accept";
+        model.addAttribute("notification", notification);
+        model.addAttribute("orderId", orderId);
+        return "admin/orders/confirmation";
+    }
+
+    @GetMapping("/{orderId}/accept")
+    public String acceptOrders(@PathVariable("orderId") Integer orderId, Model model) {
+        ordersService.acceptOrders(orderId);
+        return "redirect:/admin/orders";
+    }
+
+    @GetMapping("/{orderId}/reject")
+    public String rejectOrders(@PathVariable("orderId") Integer orderId, Model model) {
+        ordersService.rejectOrders(orderId);
         return "redirect:/admin/orders";
     }
 }

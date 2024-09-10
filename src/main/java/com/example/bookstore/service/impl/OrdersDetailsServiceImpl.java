@@ -61,4 +61,16 @@ public class OrdersDetailsServiceImpl implements OrdersDetailsService {
     public void RemoveBookFromOrder(int bookId) {
         ordersDetailsRepository.removeByBookId(bookId);
     }
+
+    @Override
+    public boolean checkOrder(List<BooksOrders> booksOrdersList) {
+        boolean check=true;
+        for(BooksOrders booksOrders: booksOrdersList) {
+            if(booksOrders.getStatus().equals("Not Enough")) {
+                check=false;
+                return check;
+            }
+        }
+        return check;
+    }
 }
