@@ -28,7 +28,8 @@
                     <th th:text="${order.totalPrice}"></th>
                     <th th:text="${order.status}"></th>
                     <th>
-                        <a class="btn btn-primary text-white">
+                        <a th:href="@{'/admin/orders/' + ${order.id}}"
+                           class="btn btn-primary text-white">
                             Details
                         </a>
 

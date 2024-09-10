@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.bookstore.dao.CartDetailsRepository;
 import com.example.bookstore.dao.CartsRepository;
-import com.example.bookstore.dao.OrderDetailsRepository;
+import com.example.bookstore.dao.OrdersDetailsRepository;
 import com.example.bookstore.dao.OrdersRepository;
 import com.example.bookstore.entity.Cart;
 import com.example.bookstore.entity.Order;
@@ -26,7 +26,7 @@ public class OrdersServiceImpl implements OrdersService {
 	private OrdersRepository ordersRepository;
 	
 	@Autowired
-	private OrderDetailsRepository orderDetailsRepository;
+	private OrdersDetailsRepository orderDetailsRepository;
 	
 	@Autowired
     private CartsRepository cartsRepository;
