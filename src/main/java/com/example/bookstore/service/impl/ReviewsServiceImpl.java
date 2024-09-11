@@ -6,6 +6,8 @@ import com.example.bookstore.entity.Book;
 import com.example.bookstore.entity.Review;
 import com.example.bookstore.service.ReviewsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,8 +30,8 @@ public class ReviewsServiceImpl implements ReviewsService {
     }
 
     @Override
-    public List<Review> findReviewsByBookId(Integer bookId) {
-        return reviewsRepository.findByBookId(bookId);
+    public Page<Review> findReviewsByBookId(Integer bookId, Pageable pageable) {
+        return reviewsRepository.findByBookId(bookId, pageable);
     }
 
     @Override
