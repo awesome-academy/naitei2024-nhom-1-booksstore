@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -32,9 +33,20 @@ public class CategoriesController {
         // kiểm tra nếu category id tồn tại
         Optional<Category> optionalCategory = categoryService.findById(categoryId);
         Page<Book> books = booksService.findByCategoryId(categoryId, PageRequest.of(page, size));
+        List<Book> topRatedBooks = booksService.findTopRatedBooks();
+        List<Book> bestSellingBooks = booksService.findBestSellingBooks();
+
+        model.addAttribute("topRatedBooks", topRatedBooks);
+        model.addAttribute("bestSellingBooks", bestSellingBooks);
         model.addAttribute("books", books.getContent());
+
+        if (books.isEmpty()) {
+            model.addAttribute("errorMessage", "Danh mục không chứa sản phẩm nào.");
+        }
+
         model.addAttribute("totalPages", books.getTotalPages());
         model.addAttribute("currentPage", page);
+
         return "users/home";
     }
 }
