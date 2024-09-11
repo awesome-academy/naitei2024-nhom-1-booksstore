@@ -62,7 +62,7 @@ public class SessionsController {
         usersService.saveUser(usersService.convertRegisterUserToUser(registersUser));
 
         session.setAttribute("user", usersService.convertRegisterUserToUser(registersUser));
-        return "sessions/confirmation";
+        return "sessions/login";
     }
 
 }

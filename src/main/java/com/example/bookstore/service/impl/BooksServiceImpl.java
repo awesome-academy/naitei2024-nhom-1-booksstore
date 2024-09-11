@@ -87,11 +87,7 @@ public class BooksServiceImpl implements BooksService {
 
     @Override
     public Page<Book> findByCategoryId(Integer categoryId, Pageable pageable) {
-        Page<Book> books = booksRepository.findBooksByCategoryId(categoryId, pageable);
-        if (books.isEmpty()) {
-            throw new BookNotFoundException("Danh mục không chứa sản phẩm nào.");
-        }
-        return books;
+        return booksRepository.findBooksByCategoryId(categoryId, pageable);
     }
 
     @Override

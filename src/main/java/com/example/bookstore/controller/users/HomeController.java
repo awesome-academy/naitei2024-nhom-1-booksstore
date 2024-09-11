@@ -36,6 +36,7 @@ public class HomeController {
         } else {
             books = booksService.findAll(PageRequest.of(page, size));
         }
+
         model.addAttribute("books", books.getContent());
         model.addAttribute("totalPages", books.getTotalPages());
         model.addAttribute("currentPage", page);

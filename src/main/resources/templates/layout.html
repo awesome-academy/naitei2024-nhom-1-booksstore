@@ -8,14 +8,12 @@
 </head>
 
 <body>
-<!-- Header Fragment -->
 <header th:fragment="header">
     <div class="contact-info">
         <span>Liên hệ: <strong>0708-744-001</strong> (Call/Zalo)</span>
         <span class="right">
             <a th:href="@{/guide}" style="color:inherit; text-decoration:none;">Hướng dẫn đặt sách</a> |
             <a th:href="@{/user/orders}" style="color:inherit; text-decoration:none;">Theo dõi đơn hàng</a> |
-            <!-- Authenticated user -->
             <span sec:authorize="isAuthenticated()" class="dropdown">
                 <a th:href="@{/account}" style="color:inherit; text-decoration:none;" class="dropdown-toggle">
                     <span th:text="${#authentication.name}">Tài Khoản</span>
@@ -26,7 +24,6 @@
                 </div>
             </span>
 
-            <!-- Unauthenticated user -->
             <span sec:authorize="!isAuthenticated()">
                 <a th:href="@{/sessions/login}" style="color:inherit; text-decoration:none;">
                     Đăng nhập/đăng ký
@@ -45,19 +42,17 @@
             </form>
         </div>
         <div class="cart">
-            <!-- Authenticated user -->
             <span sec:authorize="isAuthenticated()">
-        <a th:href="@{/cart(userId=${userId})}" style="color:inherit; text-decoration:none;">
-            Giỏ Hàng
-        </a>
-    </span>
+                <a th:href="@{/cart(userId=${userId})}" style="color:inherit; text-decoration:none;">
+                    Giỏ Hàng
+                </a>
+            </span>
 
-            <!-- Unauthenticated user -->
             <span sec:authorize="!isAuthenticated()">
-        <a href="javascript:void(0)" style="color:inherit; text-decoration:none; pointer-events:none; opacity:0.5;" title="Bạn cần đăng nhập để sử dụng giỏ hàng">
-             Giỏ Hàng
-        </a>
-    </span>
+                <a href="javascript:void(0)" style="color:inherit; text-decoration:none; pointer-events:none; opacity:0.5;" title="Bạn cần đăng nhập để sử dụng giỏ hàng">
+                     Giỏ Hàng
+                </a>
+            </span>
         </div>
 
 
@@ -74,7 +69,6 @@
 </header>
 
 <div class="container">
-    <!-- Sidebar Fragment -->
     <aside class="sidebar" th:fragment="sidebar">
         <ul>
             <li><a th:href="@{/home}">Tất cả</a></li>
@@ -97,13 +91,10 @@
         </ul>
     </aside>
 
-    <!-- Main Content Area -->
     <main layout:fragment="content">
-        <!-- Default content of the page -->
     </main>
 </div>
 
-<!-- Footer Fragment -->
 <footer th:fragment="footer">
     <div class="footer-container">
         <div class="footer-section">

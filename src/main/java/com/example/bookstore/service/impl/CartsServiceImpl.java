@@ -15,6 +15,7 @@ import com.example.bookstore.dao.CartDetailsRepository;
 import com.example.bookstore.dao.CartsRepository;
 import com.example.bookstore.entity.Cart;
 import com.example.bookstore.entity.CartDetail;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CartsServiceImpl implements CartsService {
@@ -47,6 +48,7 @@ public class CartsServiceImpl implements CartsService {
 		}
 	}
 
+	@Transactional
 	@Override
 	public void removeCartItem(int cartDetailId) {
 		cartDetailsRepository.deleteCartDetailById(cartDetailId);

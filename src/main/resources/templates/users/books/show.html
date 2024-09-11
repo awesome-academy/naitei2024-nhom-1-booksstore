@@ -41,13 +41,15 @@
 					<div class="purchase-options">
 						<div sec:authorize="isAuthenticated()">
 							<form action="/cart/add" method="post" id="add-to-cart-form">
-								<input type="hidden" name="bookId" th:value="${book.id}" /> <input
-									type="number" name="quantity" value="1" min="1" /> <input
-									type="hidden" th:name="${_csrf.parameterName}"
-									th:value="${_csrf.token}" />
-								<button type="submit" class="add-to-cart">+ Giỏ Hàng</button>
+								<input type="hidden" name="bookId" th:value="${book.id}" />
+								<input type="number" name="quantity" value="1" min="1" />
+								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+								<button type="submit" class="add-to-cart"
+										th:disabled="${book.stockQuantity == 0}">+ Giỏ Hàng</button>
 							</form>
+							<p th:if="${book.stockQuantity == 0}" style="color: #ff6a00;">Sản phẩm tạm hết hàng</p>
 						</div>
+
 
 						<div sec:authorize="isAnonymous()">
 							<button class="add-to-cart" disabled>+ Giỏ Hàng</button>
@@ -67,28 +69,6 @@
 					<p>Tạm thời chưa có đánh giá.</p>
 				</div>
 
-<!--				<div th:each="review : ${reviews.content}" class="review">-->
-<!--					<div class="avatar">-->
-<!--						<img src="/images/avatar.png" alt="User Avatar" />-->
-<!--					</div>-->
-<!--					<div class="review-content">-->
-<!--						<span class="username" th:text="${review.user.username}">Demo-->
-<!--							username</span>-->
-<!--						<div class="rating">-->
-<!--							<span th:each="i : ${#numbers.sequence(1, review.rating)}">★</span>-->
-<!--							<span th:if="${review.rating < 5}"-->
-<!--								th:each="i : ${#numbers.sequence(review.rating + 1, 5)}"-->
-<!--								style="color: #ddd; left: 0">★</span>-->
-<!--						</div>-->
-<!--						<p th:text="${review.content}">Review Content</p>-->
-
-<!--						<div sec:authorize="isAuthenticated()">-->
-<!--							<div th:if="${review.user.username == loggedInUsername}">-->
-<!--								<button class="delete-btn" th:attr="onclick=${'showDeleteConfirmation(' + review.id + ')'}">Xóa</button>-->
-<!--							</div>-->
-<!--						</div>-->
-<!--					</div>-->
-<!--				</div>-->
 				<div th:each="review : ${reviews}" class="review">
 					<div class="avatar">
 						<img src="/images/avatar.png" alt="User Avatar"/>

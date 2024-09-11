@@ -12,30 +12,23 @@
 <main layout:fragment="content" class="content">
     <div class="book-list">
         <h2>Danh sách sách</h2>
-        <!-- Message if no books are available -->
         <div th:if="${errorMessage}" class="no-books-message text-center">
             <h3 th:text="${errorMessage}"></h3>
         </div>
 
         <div class="book-grid">
-            <!-- Loop through books and display each one in a card -->
             <div class="book-card" th:each="book : ${books}">
-                <!-- Link to book detail page -->
                 <a th:href="@{/books/{id}(id=${book.id})}">
                     <div class="book-image">
-                        <!-- Display the book's image -->
                         <img th:src="'data:image/jpeg;base64,' + ${book.image}" alt="Book Image" />
                     </div>
                     <div class="book-info">
-                        <!-- Display the book's title -->
                         <h3 th:text="${book.title}">Book Title</h3>
                         <div class="ratings">
-                            <!-- Display the book's rating -->
                             <span th:text="${book.rating + '/5'}"></span>
                             <span style="color: #ffcc00; font-size: 24px;">★</span>
                         </div>
                         <div class="price">
-                            <!-- Display the book's price -->
                             <span class="current-price" th:text="${book.price + 'đ'}">Price</span>
                         </div>
                     </div>
