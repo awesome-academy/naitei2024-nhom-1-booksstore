@@ -47,4 +47,8 @@ public class HomeController {
 
         return "users/home";
     }
+    @GetMapping("/guide")
+    public String showGuide() {
+        return "users/guide";
+    }
 }
